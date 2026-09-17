@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote of the Day</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column; /* 세로 배치 */
+        }
+        .site-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+        .image-container {
+            width: 100%;
+            height: 250px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .quote {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .author {
+            font-size: 1rem;
+            color: #777;
+            margin-bottom: 25px;
+        }
+        .btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 웹사이트 메인 제목 -->
+    <h1 class="site-title">💡 Quote of the Day</h1>
+
+    <div class="card">
+        <!-- 영어 버전 전용 이미지 -->
+        <div class="image-container">
+            <img src="./english.jpg" alt="Quote of the Day Image">
+        </div>
+        
+        <div class="quote" id="quote-text">"Opportunities don't happen, you create them."</div>
+        <div class="author" id="quote-author">- Chris Grosser</div>
+        
+        <button class="btn" onclick="getRandomQuote()">Next Quote</button>
+    </div>
+
+    <script>
+        const quotes = [
+            { text: "“Opportunities don't happen, you create them.”", author: "Chris Grosser" },
+            { text: "“Whether you think you can or you think you can't, you're right.”", author: "Henry Ford" },
+            { text: "“The only way to do great work is to love what you do.”", author: "Steve Jobs" }
+        ];
+
+        function getRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const selected = quotes[randomIndex];
+            
+            document.getElementById('quote-text').innerText = selected.text;
+            document.getElementById('quote-author').innerText = `- ${selected.author}`;
+        }
+
+        window.onload = getRandomQuote;
+    </script>
+</body>
+</html>
