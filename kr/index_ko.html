@@ -121,11 +121,11 @@
         ];
 
         const fortunes = [
-            { text: "“오늘은 뜻밖의 좋은 소식이 찾아올 거예요.”", author: "오늘의 운세" },
-            { text: "“작은 용기가 큰 행운을 불러옵니다.”", author: "오늘의 운세" },
-            { text: "“주변 사람에게 먼저 웃어보세요, 행운이 따라옵니다.”", author: "오늘의 운세" },
-            { text: "“오늘 하루, 서두르지 않아도 좋은 결과가 있을 거예요.”", author: "오늘의 운세" },
-            { text: "“마음의 여유를 가지면 기회가 보입니다.”", author: "오늘의 운세" }
+            { text: "“오늘은 뜻밖의 좋은 소식이 찾아올 거예요.”", score: 88 },
+            { text: "“작은 용기가 큰 행운을 불러옵니다.”", score: 76 },
+            { text: "“주변 사람에게 먼저 웃어보세요, 행운이 따라옵니다.”", score: 92 },
+            { text: "“오늘 하루, 서두르지 않아도 좋은 결과가 있을 거예요.”", score: 81 },
+            { text: "“마음의 여유를 가지면 기회가 보입니다.”", score: 95 }
         ];
 
         let currentMode = 'quote';
@@ -144,7 +144,8 @@
             const selected = source[randomIndex];
 
             document.getElementById('quote-text').innerText = selected.text;
-            document.getElementById('quote-author').innerText = `- ${selected.author}`;
+            document.getElementById('quote-author').innerText =
+                currentMode === 'quote' ? `- ${selected.author}` : `오늘의 운세 점수: ${selected.score}점`;
         }
 
         window.onload = getRandom;
