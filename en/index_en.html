@@ -103,7 +103,7 @@
     <div class="card">
         <!-- 영어 버전 전용 이미지 -->
         <div class="image-container">
-            <img src="/en/english.jpg" alt="Today's Word Image">
+            <img src="/en/english.jpg" alt="Today's Word Image" id="mood-image">
         </div>
         
         <div class="quote" id="quote-text">"Opportunities don't happen, you create them."</div>
@@ -133,6 +133,7 @@
             currentMode = mode;
             document.getElementById('tab-quote').classList.toggle('active', mode === 'quote');
             document.getElementById('tab-fortune').classList.toggle('active', mode === 'fortune');
+            document.getElementById('mood-image').src = mode === 'quote' ? '/en/english.jpg' : '/en/fortune_en.jpg';
             getRandom();
         }
 
