@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote of the Day</title>
+    <title>Today's Word</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,6 +21,25 @@
             margin-bottom: 20px;
             font-weight: 800;
             letter-spacing: -1px;
+        }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .tab-btn {
+            border: none;
+            background: #e0e0e0;
+            color: #555;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        .tab-btn.active {
+            background: #2c3e50;
+            color: white;
         }
         .card {
             background: white;
@@ -73,18 +92,24 @@
 <body>
 
     <!-- 웹사이트 메인 제목 -->
-    <h1 class="site-title">💡 Quote of the Day 💡</h1>
+    <h1 class="site-title">💡 Today's Word 💡</h1>
+
+    <!-- Quote / Fortune toggle tabs -->
+    <div class="tabs">
+        <button class="tab-btn active" id="tab-quote" onclick="setMode('quote')">Quote</button>
+        <button class="tab-btn" id="tab-fortune" onclick="setMode('fortune')">Fortune</button>
+    </div>
 
     <div class="card">
         <!-- 영어 버전 전용 이미지 -->
         <div class="image-container">
-            <img src="/en/english.jpg" alt="Quote of the Day Image">
+            <img src="/en/english.jpg" alt="Today's Word Image">
         </div>
         
         <div class="quote" id="quote-text">"Opportunities don't happen, you create them."</div>
         <div class="author" id="quote-author">- Chris Grosser</div>
         
-        <button class="btn" onclick="getRandomQuote()">Next Quote</button>
+        <button class="btn" onclick="getRandom()">Next</button>
     </div>
 
     <script>
@@ -94,15 +119,33 @@
             { text: "“The only way to do great work is to love what you do.”", author: "Steve Jobs" }
         ];
 
-        function getRandomQuote() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            const selected = quotes[randomIndex];
-            
+        const fortunes = [
+            { text: "“An unexpected good news is on its way to you today.”", author: "Fortune" },
+            { text: "“A small act of courage brings big luck.”", author: "Fortune" },
+            { text: "“Smile first, and luck will follow.”", author: "Fortune" },
+            { text: "“No need to rush today, good things come naturally.”", author: "Fortune" },
+            { text: "“A calm mind sees more opportunities.”", author: "Fortune" }
+        ];
+
+        let currentMode = 'quote';
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.getElementById('tab-quote').classList.toggle('active', mode === 'quote');
+            document.getElementById('tab-fortune').classList.toggle('active', mode === 'fortune');
+            getRandom();
+        }
+
+        function getRandom() {
+            const source = currentMode === 'quote' ? quotes : fortunes;
+            const randomIndex = Math.floor(Math.random() * source.length);
+            const selected = source[randomIndex];
+
             document.getElementById('quote-text').innerText = selected.text;
             document.getElementById('quote-author').innerText = `- ${selected.author}`;
         }
 
-        window.onload = getRandomQuote;
+        window.onload = getRandom;
     </script>
 </body>
 </html>

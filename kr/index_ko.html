@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘의 명언</title>
+    <title>오늘의 한마디</title>
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
@@ -21,6 +21,25 @@
             margin-bottom: 20px;
             font-weight: 800;
             letter-spacing: -1px;
+        }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .tab-btn {
+            border: none;
+            background: #e0e0e0;
+            color: #555;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        .tab-btn.active {
+            background: #2c3e50;
+            color: white;
         }
         .card {
             background: white;
@@ -74,36 +93,60 @@
 <body>
 
     <!-- 웹사이트 메인 제목 -->
-    <h1 class="site-title">✨ 오늘의 명언</h1>
+    <h1 class="site-title">✨ 오늘의 한마디</h1>
+
+    <!-- 명언 / 운세 전환 탭 -->
+    <div class="tabs">
+        <button class="tab-btn active" id="tab-quote" onclick="setMode('quote')">명언</button>
+        <button class="tab-btn" id="tab-fortune" onclick="setMode('fortune')">오늘의 운세</button>
+    </div>
 
     <div class="card">
         <!-- 한글 버전 전용 이미지 -->
         <div class="image-container">
-            <img src="/kr/korean.jpg" alt="오늘의 명언 이미지">
+            <img src="/kr/korean.jpg" alt="오늘의 한마디 이미지">
         </div>
         
         <div class="quote" id="quote-text">"기회는 일어나는 것이 아니라 만드는 것이다."</div>
         <div class="author" id="quote-author">- 크리스 그로서</div>
         
-        <button class="btn" onclick="getRandomQuote()">다른 명언 보기</button>
+        <button class="btn" onclick="getRandom()">다른 한마디 보기</button>
     </div>
 
     <script>
         const quotes = [
-            { text: "“기회는 일어나는 것이 아니라 만드는 것이다..”", author: "크리스 그로서" },
+            { text: "“기회는 일어나는 것이 아니라 만드는 것이다.”", author: "크리스 그로서" },
             { text: "“당신이 할 수 있다고 믿든 할 수 없다고 믿든, 당신의 말은 옳다.”", author: "헨리 포드" },
             { text: "“어제보다 나은 내일을 만드는 것은 오늘의 노력이다.”", author: "미상" }
         ];
 
-        function getRandomQuote() {
-            const randomIndex = Math.floor(Math.random() * quotes.length);
-            const selected = quotes[randomIndex];
-            
+        const fortunes = [
+            { text: "“오늘은 뜻밖의 좋은 소식이 찾아올 거예요.”", author: "오늘의 운세" },
+            { text: "“작은 용기가 큰 행운을 불러옵니다.”", author: "오늘의 운세" },
+            { text: "“주변 사람에게 먼저 웃어보세요, 행운이 따라옵니다.”", author: "오늘의 운세" },
+            { text: "“오늘 하루, 서두르지 않아도 좋은 결과가 있을 거예요.”", author: "오늘의 운세" },
+            { text: "“마음의 여유를 가지면 기회가 보입니다.”", author: "오늘의 운세" }
+        ];
+
+        let currentMode = 'quote';
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.getElementById('tab-quote').classList.toggle('active', mode === 'quote');
+            document.getElementById('tab-fortune').classList.toggle('active', mode === 'fortune');
+            getRandom();
+        }
+
+        function getRandom() {
+            const source = currentMode === 'quote' ? quotes : fortunes;
+            const randomIndex = Math.floor(Math.random() * source.length);
+            const selected = source[randomIndex];
+
             document.getElementById('quote-text').innerText = selected.text;
             document.getElementById('quote-author').innerText = `- ${selected.author}`;
         }
 
-        window.onload = getRandomQuote;
+        window.onload = getRandom;
     </script>
 </body>
 </html>
