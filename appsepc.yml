@@ -1,0 +1,11 @@
+version: 0.0
+os: linux
+files:
+  - source: /site
+    destination: /usr/share/nginx/html
+file_exists_behavior: OVERWRITE
+hooks:
+  ValidateService:
+    - location: scripts/validate.sh
+      timeout: 60
+      runas: root

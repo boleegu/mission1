@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+  pre_build:
+    commands:
+      - test -f appspec.yml
+      - test -f site/index.html
+      - test -f site/health.html
+  build:
+    commands:
+      - npx --yes htmlhint "site/**/*.html"
+      - echo "$CODEBUILD_RESOLVED_SOURCE_VERSION" > site/version.txt
+
+artifacts:
+  files:
+    - appspec.yml
+    - scripts/**/*
+    - site/**/*
